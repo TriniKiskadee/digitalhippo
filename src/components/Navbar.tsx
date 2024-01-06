@@ -55,10 +55,12 @@ const Navbar = async () => {
                                             Create Account
                                         </Link>
                                     )}
+
                                     {user ? <span
                                         className={"h-6 w-px bg-gray-200"}
                                         aria-hidden={"true"}
                                     /> : null}
+
                                     {user ? null : (
                                         <div className={"flex lg:mgl-6"}>
                                             <span

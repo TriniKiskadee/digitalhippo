@@ -1,11 +1,13 @@
 import {publicProcedure, router} from "./trpc";
 import {authRouter} from "./auth-router";
+import {paymentRouter} from "./payment-router";
 import {z} from "zod";
 import {QueryValidator} from "../lib/validators/query-validator";
 import {getPayloadClient} from "../get-payload";
 
 export const appRouter = router({
     auth: authRouter,
+    payment: paymentRouter,
 
     getInfiniteProducts: publicProcedure
         .input(

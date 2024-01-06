@@ -99,13 +99,15 @@ const Page = async ({params}: PageProps) => {
                             </div>
                             <div className={"mt-6 flex items-center"}>
                                 <Check aria-hidden={true} className={"h-5 w-5 flex-shrink-0 text-green-500"} />
-                                <p className={"ml2 text-sm text-muted-foreground"}>Eligible for instant delivery</p>
+                                <p className={"ml2 text-sm text-muted-foreground"}>
+                                    Eligible for instant delivery
+                                </p>
                             </div>
                         </section>
                     </div>
 
                     {/* Product Images */}
-                    <div className={"mt-10 lg:col-start-2 lg:row-start-2 lg:mt-0 lg:self-center"}>
+                    <div className={"mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center"}>
                         <div className={"aspect-square rounded-lg"}>
                             <ImageSlider urls={validUrls} />
                         </div>
@@ -115,7 +117,7 @@ const Page = async ({params}: PageProps) => {
                     <div className={"mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start"}>
                         <div>
                             <div className={"mt-10"}>
-                                <AddToCartButton />
+                                <AddToCartButton product={product} />
                             </div>
                             <div className={"mt-6 text-center"}>
                                 <div className={"group inline-flex text-sm text-medium"}>

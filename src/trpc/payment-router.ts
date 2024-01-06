@@ -32,7 +32,7 @@ export const paymentRouter = router({
                 collection: "orders",
                 data: {
                     _isPaid: false,
-                    products: filteredProducts,
+                    products: filteredProducts.map((prod) => prod.id),
                     user: user.id,
                 }
             })
@@ -66,8 +66,11 @@ export const paymentRouter = router({
                     },
                     line_items,
                 })
-            } catch (err) {
 
+                return {url: stripeSession.url}
+            } catch (err) {
+                console.log(err)
+                return {url: null}
             }
         }),
 })

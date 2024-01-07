@@ -4,14 +4,14 @@ import {TRPCError} from "@trpc/server";
 import {getPayloadClient} from "../get-payload";
 import {stripe} from "../lib/stripe";
 import type Stripe from "stripe";
-
 export const paymentRouter = router({
-    createSession: privateProcedure.input(z.object({productIds: z.array(z.string())}))
+    createSession: privateProcedure
+        .input(z.object({productIds: z.array(z.string())}))
         .mutation(async ({ctx, input}) => {
             const {user} = ctx
             let {productIds} = input
 
-            if(productIds?.length === 0){
+            if(productIds.length === 0){
                 throw new TRPCError({code: "BAD_REQUEST"})
             }
 
@@ -21,9 +21,9 @@ export const paymentRouter = router({
                 collection: "products",
                 where: {
                     id: {
-                        in: productIds
-                    }
-                }
+                        in: productIds,
+                    },
+                },
             })
 
             const filteredProducts = products.filter((prod) => Boolean(prod.priceId))
@@ -34,7 +34,7 @@ export const paymentRouter = router({
                     _isPaid: false,
                     products: filteredProducts.map((prod) => prod.id),
                     user: user.id,
-                }
+                },
             })
 
             const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = []
@@ -58,7 +58,7 @@ export const paymentRouter = router({
                 const stripeSession = await stripe.checkout.sessions.create({
                     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
                     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cart`,
-                    payment_method_types: ["card", "paypal"],
+                    payment_method_types: ["card", "cashapp"],
                     mode: "payment",
                     metadata: {
                         userId: user.id,

@@ -37,17 +37,21 @@ export const Products: CollectionConfig = {
                     }
 
                     return updated
+
                 } else if(args.operation === "update") {
                     const data = args.data as Product
 
-                    const UpdateProduct = await stripe.products.update(data.stripeId!, {
-                        name: data.name,
-                        default_price: data.priceId!
-                    })
+                    const updateProduct = await stripe.products.update(data.stripeId!,
+                        {
+                            name: data.name,
+                            default_price: data.priceId!
+                        }
+                    )
+
                     const updated: Product = {
                         ...data,
-                        stripeId: UpdateProduct.id,
-                        priceId: UpdateProduct.default_price as string
+                        stripeId: updateProduct.id,
+                        priceId: updateProduct.default_price as string
                     }
 
                     return updated

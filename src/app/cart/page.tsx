@@ -30,7 +30,7 @@ const Page = () => {
     }, [])
 
     const cartTotal = items.reduce(
-        (total, {product}) => total + product.price,
+        (total, { product }) => total + product.price,
         0
     )
 
@@ -74,10 +74,13 @@ const Page = () => {
                         ) : null}
 
                         <ul className={cn({
-                            "divide-y divide-gray-200 border-b border-t vorder-gray-200" : isMounted && items.length > 0
+                            "divide-y divide-gray-200 border-b border-t border-gray-200" :
+                                isMounted && items.length > 0,
                         })}>
                             {isMounted && items.map(({product}) => {
-                                const label = PRODUCT_CATEGORIES.find((c) => c.value === product.category)?.label
+                                const label = PRODUCT_CATEGORIES.find(
+                                    (c) => c.value === product.category
+                                )?.label
 
                                 const {image} = product.images[0]
 
@@ -138,7 +141,7 @@ const Page = () => {
                                             </div>
                                             <p className={"mt-4 flex space-x-2 text-sm text-gray-700"}>
                                                 <Check className={"h-5 w-5 flex-shrink-0 text-green-500"} />
-                                                <p>Eligible for instant delivery</p>
+                                                <span>Eligible for instant delivery</span>
                                             </p>
                                         </div>
                                     </li>
@@ -155,7 +158,7 @@ const Page = () => {
                             <div className={"flex items-center justify-between"}>
                                 <p className={"text-sm text-gray-600"}>Subtotal</p>
                                 <p className={"text-sm font-medium text-gray-900"}>
-                                    {isMounted ? formatPrice(cartTotal) : (
+                                    {isMounted ? (formatPrice(cartTotal)) : (
                                         <span>
                                             <Loader2 className={"h-4 w-4 animate-spin text-muted-foreground"} />
                                         </span>
@@ -167,7 +170,7 @@ const Page = () => {
                                     <span>Flat Transaction Fee</span>
                                 </div>
                                 <div className={"text-sm font-medium text-gray-900"}>
-                                    {isMounted ? formatPrice(fee) : (
+                                    {isMounted ? (formatPrice(fee)) : (
                                         <span>
                                             <Loader2 className={"h-4 w-4 animate-spin text-muted-foreground"}/>
                                         </span>
@@ -190,17 +193,20 @@ const Page = () => {
                         </div>
 
                         <div className={"mt-6"}>
-                            <Button
-                                disabled={items.length === 0 || isLoading}
-                                onClick={() => createCheckoutSession({productIds})}
-                                className={"w-full"}
-                                size={"lg"}
-                            >
-                                {isLoading ? (
-                                    <Loader2 className={"w-4 h-4 animate-spin mr-1.5"} />
-                                ): null}
-                                Checkout
-                            </Button>
+                            {isMounted ? (
+                                <Button
+                                    disabled={items.length === 0 || isLoading}
+                                    onClick={() => createCheckoutSession({productIds})}
+                                    className={"w-full"}
+                                    size={"lg"}
+                                >
+                                    {isLoading ? (
+                                        <Loader2 className={"w-4 h-4 animate-spin mr-1.5"} />
+                                    ) : null}
+                                    Checkout
+                                </Button>
+                            ): null}
+
                         </div>
                     </section>
                 </div>

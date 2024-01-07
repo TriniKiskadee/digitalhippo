@@ -85,6 +85,7 @@ const start = async () => {
     })
 
     app.use('/cart', cartRouter)
+
     app.use(
         '/api/trpc',
         trpcExpress.createExpressMiddleware({

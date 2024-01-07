@@ -20,11 +20,11 @@ const Page = () => {
     const isSeller = searchParams.get("as") === "seller"
     const origin = searchParams.get("origin")
 
-    const contineAsSeller = () => {
+    const continueAsSeller = () => {
         router.push("?as=seller")
     }
 
-    const contineAsBuyer = () => {
+    const continueAsBuyer = () => {
         router.replace("/sign-in",undefined)
     }
 
@@ -129,7 +129,7 @@ const Page = () => {
 
                         <div className={"relative"}>
                             <div aria-hidden={"true"} className={"absolute inset-0 flex items-center"}>
-                                <span className={"w-full border-t"}/>
+                                <span className={"w-full border-t"} />
                             </div>
                             <div className={"relative flex justify-center text-xs uppercase"}>
                                 <span className={"bg-background px-2 text-muted-foreground"}>
@@ -140,7 +140,7 @@ const Page = () => {
 
                         {isSeller ? (
                             <Button
-                                onClick={contineAsBuyer}
+                                onClick={continueAsBuyer}
                                 variant={"secondary"}
                                 disabled={isLoading}
                             >
@@ -148,7 +148,7 @@ const Page = () => {
                             </Button>
                         ): (
                             <Button
-                                onClick={contineAsSeller}
+                                onClick={continueAsSeller}
                                 variant={"secondary"}
                                 disabled={isLoading}
                             >
